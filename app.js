@@ -40,7 +40,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
     let msg = `Edit message: corpus length: ${corpus.length}`
     console.time(msg)
     let index = corpus.indexOf(oldMessage.cleanContent)
-    if (index !== -1 && config.retainEdits) {
+    if (index !== -1 && !config.retainEdits) {
       corpus[index] = newMessage.cleanContent
     } else {
       corpus.push(newMessage.cleanContent)
