@@ -19,20 +19,31 @@ async function fetch (channel, before) {
   return message
 }
 
-client.on('ready', async () => {
-  for (let guild of client.guilds.values()) {
-    for (let channel of guild.channels.filter(channel => channel.type === 'text').values()) {
-      let result = await fetch(channel)
-      while (result != null) {
-        console.log(result.createdAt, out.length)
-        result = await fetch(channel, result.id)
-        fs.writeFile('corpus.json', JSON.stringify(out), 'utf8', err => {
-          if (err) {
-            console.error(err)
-            fs.writeFileSync(`${(new Date()).getTime()}.json`, JSON.stringify(out), 'utf8')
-          }
-        })
+async function crawl (guild, channel) {
+  let result = await fetch(channel)
+  while (result != null) {
+    console.log(guild.name, channel.name, result.createdAt, 'Current corpus length:', out.length)
+    result = await fetch(channel, result.id)
+    fs.writeFile('corpus.json', JSON.stringify(out), 'utf8', err => {
+      if (err) {
+        console.error(err)
+        fs.writeFileSync(`${(new Date()).getTime()}.json`, JSON.stringify(out), 'utf8')
       }
+    })
+  }
+}
+
+client.on('ready', () => {
+  let guilds = client.guilds.values().filter(guild => {
+    return !config.ignoreGuilds.includes(guild.id)
+  })
+  for (let guild of guilds) {
+    let channels = guild.channels.values().filter(channel => {
+      if (channel.type !== 'text') return false
+      return !config.ignoreChannels.includes(channel.id)
+    })
+    for (let channel of channels) {
+      crawl(guild, channel)
     }
   }
 })
