@@ -20,7 +20,7 @@ client.on('ready', () => {
 client.on('message', message => {
   if (message.isMentioned(client.user.id)) {
     message.channel.send(markov.makeChain()).catch(console.error)
-  } else if (config.watchId != null && message.author.id === config.watchId) {
+  } else if (config.watchID != null && message.author.id === config.watchID) {
     if (message.cleanContent === '') return console.log('Empty message')
     if (corpus.indexOf(message.cleanContent) !== -1) return console.log('Duplicate message')
     corpus.push(message.cleanContent)
@@ -36,7 +36,7 @@ client.on('message', message => {
 
 client.on('messageUpdate', (oldMessage, newMessage) => {
   if (config.ignoreEdits != null) return
-  if (config.watchId != null && oldMessage.author.id === config.watchId) {
+  if (config.watchID != null && oldMessage.author.id === config.watchID) {
     let msg = `Edit message: corpus length: ${corpus.length}`
     console.time(msg)
     let index = corpus.indexOf(oldMessage.cleanContent)
