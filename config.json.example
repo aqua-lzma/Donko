@@ -1,6 +1,14 @@
 {
-  "botToken": "[Bot auth token]",
-  "watchID": "[Discord ID of person to watch and populate corpus with]",
-  "ignoreEdits": "[True or ommit, if omitted will ignore any messages watched person edits]",
-  "retainEdits": "[True of ommit, if true wont replace edited message and just add another entry for new content]"
+  // Bot auth token
+  "botToken": "",
+  // Discord ID of person to watch and populate corpus with
+  "watchID": "",
+  // If true will ignore any messages watched person edits
+  "ignoreEdits": false,
+  // If true wont replace watched edited messages and will just add another entry for new content
+  "retainEdits": false,
+  // List of guild ID's to ignore in scrape.js
+  "ignoreGuilds": [],
+  // List of channel ID's to ignore in scrape.js
+  "ignoreChannels": []
 }
