@@ -1,6 +1,6 @@
 {
   "botToken": "[Bot auth token]",
-  "watchId": "[Discord ID of person to watch and populate corpus with]",
+  "watchID": "[Discord ID of person to watch and populate corpus with]",
   "ignoreEdits": "[True or ommit, if omitted will ignore any messages watched person edits]",
   "retainEdits": "[True of ommit, if true wont replace edited message and just add another entry for new content]"
 }
