@@ -9,21 +9,19 @@ client.login(config.botToken)
 
 let out = []
 
-function fetch (channel, before) {
-  return async () => {
-    let options = { limit: 100 }
-    if (before != null) options.before = before
-    let messages = await channel.fetchMessages(options)
-    for (var message of messages.values()) {
-      if (message.author.id === config.watchID) out.push(message.cleanContent)
-    }
-    return message
+async function fetch (channel, before) {
+  let options = { limit: 100 }
+  if (before != null) options.before = before
+  let messages = await channel.fetchMessages(options)
+  for (var message of messages.values()) {
+    if (message.author.id === config.watchID) out.push(message.cleanContent)
   }
+  return message
 }
 
 client.on('ready', async () => {
   for (let guild of client.guilds.values()) {
-    for (let channel of guild.channels.filter(channel => channel.type === 'text')) {
+    for (let channel of guild.channels.filter(channel => channel.type === 'text').values()) {
       let result = await fetch(channel)
       while (result != null) {
         console.log(result.createdAt, out.length)
