@@ -15,7 +15,7 @@ function fetch (channel, before) {
     if (before != null) options.before = before
     let messages = await channel.fetchMessages(options)
     for (var message of messages.values()) {
-      if (message.author.id === config.watchId) out.push(message.cleanContent)
+      if (message.author.id === config.watchID) out.push(message.cleanContent)
     }
     return message
   }
